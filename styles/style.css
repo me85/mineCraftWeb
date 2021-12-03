@@ -1,0 +1,82 @@
+body {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  background-color: white;
+}
+
+#game-board {
+  background-color: rgb(187, 226, 240);
+  width: 100vmin;
+  height: 100vmin;
+  display: grid;
+  grid-template-rows: repeat(21, 1fr);
+  grid-template-columns: repeat(21, 1fr);
+}
+
+/* side bar */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.axe {
+  display: block;
+  background-image: url("/images/axe.jpg");
+  background-repeat: no-repeat;
+
+  width: 100px;
+  height: 120px;
+}
+
+.pickaxe {
+  background-image: url("/images/pickaxe.jpg");
+  background-repeat: no-repeat;
+  width: 100px;
+  height: 120px;
+}
+.shovel {
+  background-image: url("/images/shovel.jpg");
+  background-repeat: no-repeat;
+  width: 100px;
+  height: 100px;
+}
+
+.inventory {
+  height: 40px;
+  width: 40px;
+  background-color: gray;
+}
+
+.ground {
+  border: 0.15vmin solid burlywood;
+  background-image: url("/images/groundPic1.jpeg");
+}
+
+.grass {
+  background-image: url("/images/grass.jpeg");
+  /* grid-column: 1 / span 21;
+  grid-row: 15 / span 1; */
+}
+
+.tree {
+  background-image: url("/images/tree.jpeg");
+}
+
+.cloud {
+  background-color: aliceblue;
+  grid-row: 7 / span 3;
+  grid-column: 5 / span 4;
+}
+
+.wood {
+  background-image: url("/images/wood.jpeg");
+}
+
+.rock {
+  background-image: url("/images/rock2.jpg");
+}
