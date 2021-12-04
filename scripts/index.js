@@ -210,14 +210,6 @@ function drawWood(gameBoard) {
   });
 }
 
-// function drawSingleCloudItem(gameBoard) {
-//   gameBoard = document.getElementById("game-board");
-//   const cloudElement = document.createElement("div");
-//   cloudElement.dataset.type = material.cloud;
-//   cloudElement.classList.add("cloud");
-//   gameBoard.appendChild(cloudElement);
-// }
-
 let pickaxelIsClicked = false;
 var pickAxeElement = document.querySelector(".pickaxe");
 pickAxeElement.addEventListener("click", (clickHandler) => {
@@ -254,16 +246,19 @@ function drawRock(gameBoard) {
   });
 }
 
-drawDirt();
-drawGrass();
-
-drawTree();
-drawWood();
-drawRock();
-drawSky();
-
 let buttonEl = document.querySelector(".button");
 
 buttonEl.addEventListener("click", () => {
-  location.reload();
+  document.location.reload();
 });
+
+function main() {
+  drawDirt();
+  drawGrass();
+  drawTree();
+  drawWood();
+  drawRock();
+  drawSky();
+}
+
+main();

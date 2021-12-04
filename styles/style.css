@@ -8,6 +8,26 @@ body {
   background-color: white;
 }
 
+.splash {
+  top: 0;
+  left: 0;
+  display: inline;
+  background-image: url("/images/Minecraft-2-1600-900.jpg");
+  background-repeat: no-repeat;
+  position: absolute;
+  line-height: 30vh;
+  text-align: center;
+  /* background-color: aquamarine; */
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  font-size: 40px;
+}
+
+.splash.display-none {
+  display: none;
+}
+
 #game-board {
   background-color: rgb(187, 226, 240);
   width: 100vmin;
@@ -57,29 +77,23 @@ body {
   border: 2px solid black;
 }
 
+/* matrials */
+
 .sky {
   background-color: rgb(187, 226, 240);
 }
 
 .ground {
-  /* border: 0.15vmin solid burlywood; */
+  border: 0.15vmin solid burlywood;
   background-image: url("/images/groundPic1.jpeg");
 }
 
 .grass {
   background-image: url("/images/grass.jpeg");
-  /* grid-column: 1 / span 21;
-  grid-row: 15 / span 1; */
 }
 
 .tree {
   background-image: url("/images/tree.jpeg");
-}
-
-.cloud {
-  background-color: aliceblue;
-  grid-row: 7 / span 3;
-  grid-column: 5 / span 6;
 }
 
 .wood {
@@ -117,4 +131,15 @@ body {
     rgba(44, 187, 99, 0.25) 0 2px 4px, rgba(44, 187, 99, 0.25) 0 4px 8px,
     rgba(44, 187, 99, 0.25) 0 8px 16px, rgba(44, 187, 99, 0.25) 0 16px 32px;
   transform: scale(1.05) rotate(-1deg);
+}
+
+#btnStart {
+  background-color: #4caf50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }
