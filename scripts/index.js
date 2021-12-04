@@ -7,8 +7,38 @@ const material = {
   tree: 3,
   rock: 4,
   cloud: 5,
-  invetory: [],
+  invetory: {
+    emptyInvetory: 0,
+    grassInvetory: 1,
+    woodInvetory: 2,
+    treeInvetory: 3,
+    rockInvetory: 4,
+    dirtInvetory: 5,
+  },
 };
+
+// console.log(material.rock);
+
+// console.log(material.invetory.dirtInvetory);
+
+const tools = {
+  axe: 1,
+  pickAxe: 2,
+  shovel: 3,
+};
+
+let shovelIsClicked = false;
+
+var shovelElement = document.querySelector(".shovel");
+
+shovelElement.addEventListener("click", (clickHandler) => {
+  console.log("clisho");
+  return (shovelIsClicked = true);
+});
+
+// function clickHandler() {
+
+// }
 
 const gameBoard = document.getElementById("game-board");
 
@@ -23,9 +53,31 @@ function drawDirt(gameBoard) {
     groundElement.dataset.y = segment.y;
     groundElement.dataset.type = material.dirt;
     groundElement.classList.add("ground");
+
+    groundElement.addEventListener("click", () => {
+      // console.log("hi");
+      if (shovelIsClicked) {
+        groundElement.classList.remove("ground");
+        var invetoryEl = document.querySelector(".inventory");
+        // invetoryEl.classList.replace("inventory", "ground");
+
+        invetoryEl.classList.add("ground");
+
+        invetoryEl.addEventListener("click", (func) => {
+          console.log(material.invetory.dirtInvetory);
+        });
+
+        // shovelIsClicked = false;
+      } else {
+        console.log(" shoval doesnt click");
+      }
+    });
+
     gameBoard.appendChild(groundElement);
   });
 }
+
+function putInvetory(params) {}
 
 function drawGrass(gameBoard) {
   gameBoard = document.getElementById("game-board");
@@ -95,6 +147,17 @@ function drawRock(gameBoard) {
     gameBoard.appendChild(rockElement);
   });
 }
+
+// let groundEl = document.querySelector(".ground");
+
+// groundEl.addEventListener("click", (func) => {
+//   console.log("li ground");
+//   if (x) {
+//     groundElement.classList.remove("ground");
+//   } else {
+//     return;
+//   }
+// });
 
 drawDirt();
 drawGrass();
