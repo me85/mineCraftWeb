@@ -151,8 +151,6 @@ export const grassArea = [
   { x: 21, y: 15 },
 ];
 
-export const cloudArea = [{ x: 14, y: 15 }];
-
 export const treeArea = [
   { x: 7, y: 19 },
   { x: 7, y: 18 },
