@@ -7,8 +7,9 @@ const material = {
   tree: 3,
   rock: 4,
   cloud: 5,
+  sky: 6,
   invetory: {
-    emptyInvetory: 0,
+    emptyInvetory: null,
     grassInvetory: 1,
     woodInvetory: 2,
     treeInvetory: 3,
@@ -16,16 +17,80 @@ const material = {
     dirtInvetory: 5,
   },
 };
-
 // console.log(material.rock);
-
 // console.log(material.invetory.dirtInvetory);
-
 const tools = {
   axe: 1,
   pickAxe: 2,
   shovel: 3,
 };
+
+function drawSky(gameBoard) {
+  let Tile = function (x, y) {
+    this.x = x;
+    this.y = y;
+    //   this.size = 441;
+  };
+  let tiles = [];
+  let NUM_COLS = 21;
+  let NUM_ROWS = 21;
+  for (let i = 1; i <= NUM_COLS; i++) {
+    for (let j = 1; j <= NUM_ROWS; j++) {
+      let X = i;
+      let Y = j;
+      tiles.push(new Tile(X, Y));
+    }
+  }
+  tiles.forEach((Tile) => {
+    gameBoard = document.getElementById("game-board");
+    const skyElement = document.createElement("div");
+    skyElement.style.gridRowStart = Tile.x;
+    skyElement.style.gridRowStart = Tile.y;
+    // my edit
+    skyElement.dataset.x = Tile.x;
+    skyElement.dataset.y = Tile.y;
+    skyElement.dataset.type = material.sky;
+    skyElement.classList.add("sky");
+    skyElement.addEventListener("click", () => {
+      if (material.invetory.emptyInvetory == 5) {
+        skyElement.classList.remove("sky");
+        skyElement.classList.add("ground");
+
+        material.invetory.emptyInvetory = 0;
+        console.log(material.invetory.emptyInvetory);
+      } else if (material.invetory.emptyInvetory == 4) {
+        skyElement.classList.remove("sky");
+        skyElement.classList.add("rock");
+
+        material.invetory.emptyInvetory = 0;
+        console.log(material.invetory.emptyInvetory);
+      } else if (material.invetory.emptyInvetory == 3) {
+        skyElement.classList.remove("sky");
+        skyElement.classList.add("tree");
+
+        material.invetory.emptyInvetory = null;
+
+        console.log(material.invetory.emptyInvetory);
+      } else if (material.invetory.emptyInvetory == 2) {
+        skyElement.classList.remove("sky");
+        skyElement.classList.add("wood");
+
+        material.invetory.emptyInvetory = null;
+
+        console.log(material.invetory.emptyInvetory);
+      } else if (material.invetory.emptyInvetory == 1) {
+        skyElement.classList.remove("sky");
+        skyElement.classList.add("grass");
+
+        material.invetory.emptyInvetory = null;
+
+        console.log(material.invetory.emptyInvetory);
+      }
+    });
+
+    gameBoard.appendChild(skyElement);
+  });
+}
 
 let shovelIsClicked = false;
 
@@ -35,10 +100,6 @@ shovelElement.addEventListener("click", (clickHandler) => {
   console.log("clisho");
   return (shovelIsClicked = true);
 });
-
-// function clickHandler() {
-
-// }
 
 const gameBoard = document.getElementById("game-board");
 
@@ -62,12 +123,15 @@ function drawDirt(gameBoard) {
         // invetoryEl.classList.replace("inventory", "ground");
 
         invetoryEl.classList.add("ground");
+        // material.invetory.dirtInvetory
 
         invetoryEl.addEventListener("click", (func) => {
-          console.log(material.invetory.dirtInvetory);
-        });
+          material.invetory.emptyInvetory = 5;
+          invetoryEl.classList.remove("ground");
 
-        // shovelIsClicked = false;
+          // console.log(material.invetory.emptyInvetory);
+        });
+        shovelIsClicked = false;
       } else {
         console.log(" shoval doesnt click");
       }
@@ -76,8 +140,6 @@ function drawDirt(gameBoard) {
     gameBoard.appendChild(groundElement);
   });
 }
-
-function putInvetory(params) {}
 
 function drawGrass(gameBoard) {
   gameBoard = document.getElementById("game-board");
@@ -91,9 +153,41 @@ function drawGrass(gameBoard) {
     grassElement.dataset.type = material.grass;
     console.log(grassElement.dataset.type);
     grassElement.classList.add("grass");
+
+    grassElement.addEventListener("click", () => {
+      // console.log("hi");
+      if (shovelIsClicked) {
+        grassElement.classList.remove("grass");
+        var invetoryEl = document.querySelector(".inventory");
+        // invetoryEl.classList.replace("inventory", "ground");
+
+        invetoryEl.classList.add("grass");
+        // material.invetory.dirtInvetory
+
+        invetoryEl.addEventListener("click", (func) => {
+          material.invetory.emptyInvetory = 1;
+          invetoryEl.classList.remove("grass");
+
+          // console.log(material.invetory.emptyInvetory);
+        });
+        shovelIsClicked = false;
+      } else {
+        console.log(" shoval doesnt click");
+      }
+    });
+
     gameBoard.appendChild(grassElement);
   });
 }
+
+let axelIsClicked = false;
+
+var axelElement = document.querySelector(".axe");
+
+axelElement.addEventListener("click", (clickHandler) => {
+  console.log("cli axe");
+  return (axelIsClicked = true);
+});
 
 function drawTree(gameBoard) {
   gameBoard = document.getElementById("game-board");
@@ -106,6 +200,30 @@ function drawTree(gameBoard) {
     treeElement.dataset.y = segment.y;
     treeElement.dataset.type = material.tree;
     treeElement.classList.add("tree");
+
+    treeElement.addEventListener("click", () => {
+      // console.log("hi");
+      if (axelIsClicked) {
+        treeElement.classList.remove("tree");
+        var invetoryEl = document.querySelector(".inventory");
+        // invetoryEl.classList.replace("inventory", "ground");
+
+        invetoryEl.classList.add("tree");
+
+        invetoryEl.addEventListener("click", (func) => {
+          material.invetory.emptyInvetory = 3;
+          // invetoryEl.classList.remove("tree");
+          invetoryEl.classList = "";
+          invetoryEl.classList.add("inventory");
+
+          // console.log(material.invetory.emptyInvetory);
+        });
+        axelIsClicked = false;
+      } else {
+        console.log(" axe doesnt click");
+      }
+    });
+
     gameBoard.appendChild(treeElement);
   });
 }
@@ -121,6 +239,30 @@ function drawWood(gameBoard) {
     woodElement.dataset.y = segment.y;
     woodElement.dataset.type = material.tree;
     woodElement.classList.add("wood");
+
+    woodElement.addEventListener("click", () => {
+      // console.log("hi");
+      if (axelIsClicked) {
+        woodElement.classList.remove("wood");
+        var invetoryEl = document.querySelector(".inventory");
+        // invetoryEl.classList.replace("inventory", "ground");
+
+        invetoryEl.classList.add("wood");
+
+        invetoryEl.addEventListener("click", (func) => {
+          material.invetory.emptyInvetory = 2;
+          // invetoryEl.classList.remove("tree");
+          invetoryEl.classList = "";
+          invetoryEl.classList.add("inventory");
+
+          // console.log(material.invetory.emptyInvetory);
+        });
+        axelIsClicked = false;
+      } else {
+        console.log(" axe doesnt click");
+      }
+    });
+
     gameBoard.appendChild(woodElement);
   });
 }
@@ -133,6 +275,15 @@ function drawSingleCloudItem(gameBoard) {
   gameBoard.appendChild(cloudElement);
 }
 
+let pickaxelIsClicked = false;
+
+var pickAxeElement = document.querySelector(".pickaxe");
+
+pickAxeElement.addEventListener("click", (clickHandler) => {
+  console.log("clcik pickaxe");
+  return (pickaxelIsClicked = true);
+});
+
 function drawRock(gameBoard) {
   gameBoard = document.getElementById("game-board");
   rockArea.forEach((segment) => {
@@ -144,18 +295,52 @@ function drawRock(gameBoard) {
     rockElement.dataset.y = segment.y;
     rockElement.dataset.type = material.rock;
     rockElement.classList.add("rock");
+    rockElement.addEventListener("click", () => {
+      // console.log("hi");
+      if (pickaxelIsClicked) {
+        rockElement.classList.remove("rock");
+        var invetoryEl = document.querySelector(".inventory");
+        // invetoryEl.classList.replace("inventory", "ground");
+
+        invetoryEl.classList.add("rock");
+        // material.invetory.dirtInvetory
+
+        invetoryEl.addEventListener("click", (func) => {
+          material.invetory.emptyInvetory = 4;
+          invetoryEl.classList.remove("rock");
+
+          // console.log(material.invetory.emptyInvetory);
+        });
+        pickaxelIsClicked = false;
+      } else {
+        console.log(" pick axe doesnt click");
+      }
+    });
+
     gameBoard.appendChild(rockElement);
   });
 }
 
-// let groundEl = document.querySelector(".ground");
+// let skyEL = document.querySelector(".sky");
 
-// groundEl.addEventListener("click", (func) => {
-//   console.log("li ground");
-//   if (x) {
-//     groundElement.classList.remove("ground");
-//   } else {
-//     return;
+// skyEL.addEventListener("click", () => {
+//   console.log("x", skyEL.dataset.x);
+//   console.log("y", skyEL.dataset.y);
+//   if (material.invetory.emptyInvetory == 5) {
+//     // e.target
+
+//     skyEL.classList.remove("sky");
+//     skyEL.classList.add("ground");
+//     // material.invetory.emptyInvetory == 0;
+//     console.log("5 is dirt");
+//   } else if (material.invetory.emptyInvetory == 4) {
+//     console.log("4 is rock");
+//   } else if (material.invetory.emptyInvetory == 3) {
+//     console.log("3 is tree");
+//   } else if (material.invetory.emptyInvetory == 2) {
+//     console.log("2 is wood");
+//   } else if (material.invetory.emptyInvetory == 1) {
+//     console.log("1 is grass");
 //   }
 // });
 
@@ -165,3 +350,4 @@ drawSingleCloudItem();
 drawTree();
 drawWood();
 drawRock();
+drawSky();

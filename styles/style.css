@@ -57,6 +57,10 @@ body {
   border: 2px solid black;
 }
 
+.sky {
+  background-color: rgb(187, 226, 240);
+}
+
 .ground {
   /* border: 0.15vmin solid burlywood; */
   background-image: url("/images/groundPic1.jpeg");
